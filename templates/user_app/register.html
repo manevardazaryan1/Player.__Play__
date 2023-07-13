@@ -1,0 +1,18 @@
+{%  extends 'includes/base.html' %}
+{% block title %} Register {% endblock %}
+{% block content %}
+<!-- Registration form html-->
+<div class="main ">
+    <div class="add_post_box">
+    <h1 class="add_post_title title">Register</h1>
+        <form method="POST" enctype="multipart/form-data" class="search_box log_reg_form">
+            {% csrf_token %}   
+            {% for f in form %}
+            <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+            <div class="form-error">{{ f.errors }}</div>
+            {% endfor %} 
+            <button type="submit" class="btn btn-primary">Sign up</button>  
+        </form>
+    </div>
+</div>
+{% endblock %}

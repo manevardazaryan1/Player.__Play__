@@ -1,0 +1,41 @@
+{% extends "includes/base.html" %}
+{% block title %} PLAY {% endblock %}
+{% load static %}
+{% block content  %}
+
+<h3>Genre</h3>
+{% for genre in genres %}
+<div class="col-lg-3 col-md-4 col-sm-12 block">
+    <div class="singer_box">
+        <div class="singer_image">
+            <a href="{% url 'genre_app:detail' genre.slug %}">
+                <img src="{% if genre.image %}{{ genre.image.url }}{% endif %}" alt="">
+            </a>
+        </div>
+        <div class="singer_name"><h3 class="name">{{ genre.name }}</h3></div>
+    </div>
+</div>
+{% endfor %}
+
+<div>
+  <h3>Trending songs</h3>
+  {% if trending_songs %}
+    {% for item in trending_songs %}
+      {{ item.name }}
+      <div class="detail_img"><a href="{{ item.get_absolute_url }}"><img width="200" src="{% if item.image %}{{ item.image.url }}{% endif %}" alt="{{ item.name }}"></a></div>
+    {% endfor %}
+  {% endif %}
+</div>
+
+
+<div>
+  <h3>Recomended artists</h3>
+  {% if recomended_artists %}
+    {% for item in recomended_artists %}
+      {{ item.name }}
+      <div class="detail_img"><a href="{{ item.get_absolute_url }}"><img width="200" src="{% if item.image %}{{ item.image.url }}{% endif %}" alt="{{ item.name }}"></a></div>
+    {% endfor %}
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'includes/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content  %}
+{% load socialaccount %}
+<!-- Login form html -->
+
+<div class="main ">
+    <div class="add_post_box">
+        <h1 class="add_post_title title">Login</h1>
+
+        <!-- <button class="btn btn-outline-info">
+            <a href="{% provider_login_url 'google'%}?next=/">
+                <i class="fab fa-google"></i>
+                Login with Google
+            </a>
+        </button> -->
+        <form action="{% url 'login' %}" method="post" class="search_box log_reg_form" id="my_captcha_form">
+            {% csrf_token %}
+            {% for f in form %}
+            <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+            <div class="form-error">{{ f.errors }}</div>
+            {% endfor %}
+            <div class="g-recaptcha" data-theme="dark" data-sitekey="6LeHK-cmAAAAAE-cLxGjJWodz1EnpjloeT9xuQYj" data-callback="capcha_filled" data-expired-callback="capcha_expired"></div>
+            <button type="submit" id="submit">Login</button>
+
+            <div class="log_box">
+                <p>
+                    <a href="{% url 'password_reset' %}">Forget password?</a> or <a href="{% url 'register' %}">Sign up</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    document.getElementById("my_captcha_form").addEventListener("submit",function(evt)
+    {
+    
+    var response = grecaptcha.getResponse();
+    if(response.length == 0) 
+    { 
+        //reCaptcha not verified
+        alert("please verify you are humann!"); 
+        evt.preventDefault();
+        return false;
+    }
+    //captcha verified
+    //do the rest of your validations here
+    
+    });
+</script>
+{% endblock %}

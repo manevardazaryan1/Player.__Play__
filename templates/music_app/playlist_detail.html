@@ -1,0 +1,21 @@
+{% extends 'includes/base.html' %}
+{% block title %} Music {% endblock %}
+{% block content  %}
+
+<!-- Site index html -->
+ <!-- Site index html -->
+ <div class="music_container row container-fluid">
+    <h1 class="title">{{ playlist.name }}</h1>
+    <a href="{% url 'music_app:delete_playlist' playlist.pk %}">Delete Playlist</a>
+    {% for music in playlist.music.all %}
+        <a href="{% url 'music_app:delete_music_from_playlist' playlist.name music.slug %}">Delete music</a>
+        {{ music.name }}
+        <audio controls>
+            <source src="/media/{{ music.audio }}" type="audio/mpeg">
+        </audio>
+        {% if music.image %}
+            <a href="{{ music.get_absolute_url }}"><img src="{{ music.image.url }}" alt="{{ music.name }}" style="width:200px !important;"></a>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

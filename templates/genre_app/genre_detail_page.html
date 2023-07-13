@@ -1,0 +1,40 @@
+{% extends 'includes/base.html' %}
+{% block title %} genre Detail {% endblock %}
+{% load static %}
+{% block content  %}
+
+<!-- singer Detail -->
+
+<h1 class="main_title">{{ genre.name }}</h1>
+<div class="col1 col">
+<div class="detail_img"><img width="500" src="{% if gentre.image %}{{ genre.image.url }}{% endif %}"></div>
+</div>
+           
+<h4>Music</h4>
+<div class="detail_singer_box row">
+    {% for music in genre.music_genre.all %}
+        <a href="{{ music.get_absolute_url }}" class="detail_mov_act_img">
+            <img src="{% if music.image %}{{ music.image.url }}{% endif %}" alt="">
+        </a>
+    {% endfor %}
+</div>
+<h4>Artists</h4>
+<div class="detail_singer_box row">
+    {% for artist in genre.singer_genre.all %}
+        <a href="{{ artist.get_absolute_url }}" class="detail_mov_act_img" width="200">
+            <img src="{% if artist.image %}{{ artist.image.url }}{% endif %}" alt="" width="200">
+        </a>
+    {% endfor %}
+</div>
+
+
+<div>
+    {% if recently_viewed %}
+      {% for item in recently_viewed %}
+        {{ item.name }}
+        <div class="detail_img"><a href="{{ item.get_absolute_url }}"><img width="200" src="{% if item.image %}{{ item.image.url }}{% endif %}" alt="{{ item.name }}"></a></div>
+      {% endfor %}
+    {% endif %}
+</div>
+
+{% endblock %}

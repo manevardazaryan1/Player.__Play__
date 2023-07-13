@@ -1,0 +1,97 @@
+{% extends 'includes/base.html' %}
+{% block title %} Music {% endblock %}
+{% block content  %}
+{% load static %}
+<!-- Site index html -->
+ <!-- Site index html -->
+ <div class="music_container row container-fluid">
+    <h1 class="title">Playlists</h1>
+
+    {% if playlists %}
+        <form class='search' autocomplete='off'>
+            <div class='autocomplete'>
+                <input type='text' id='filter' onkeyup='filter_search()' placeholder='Search playlist...' class='form-control me-2'>
+            </div>
+        </form>
+    {% endif %}
+    <div class="message"></div>
+    <div class="playlists_block">
+        {% for playlist in playlists %}
+            <div class="card mb-2 block playlists">
+                <a href="{{playlist.get_absolute_url}}" class="card-body name playlist">{{ playlist.name }}</a>
+            </div>
+        {% endfor %}
+    </div>
+    <input type="text" class="playlist_name">
+    <button type="button" class="btn btn-dark my-3 create_playlist">Create Playlist</button>
+    <nav aria-label="...">
+        <ul class="pagination d-flex justify-content-end">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<div class="test">Test</div>
+
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+<script src='{% static "js/autocomplete.js" %}'></script>
+<script src='{% static "js/filter_search.js" %}'></script>
+<script>
+    $(document).ready(function(){
+        $(".create_playlist").on('click',function(){
+            var _playlist_name=$(".playlist_name").val();
+            if (_playlist_name != ''){
+
+                $(function(){
+                    b_ = true
+                    $(".playlists>.playlist").each(function(){
+                        if($(this).text() == _playlist_name){
+                            b_ = false;
+                            console.log($(this).text() == _playlist_name);
+                        }
+                    });
+
+
+                    if(b_){
+                        $.ajax({
+                            url:"/playlist/create/",
+                            type:"post",
+                            data:{
+                                playlist_name:_playlist_name,
+                                csrfmiddlewaretoken:"{{csrf_token}}"
+                            },
+                            dataType:'json',
+                            beforeSend:function(){
+                                $(".create_playlist").addClass('disabled').text('Creating...');
+                            },
+                            success:function(res){
+                                if(res.bool==true){
+                                    $(".playlist_name").val('')
+                                    var _html= "<div class='card mb-2 block playlists'><a href='/playlist/"+_playlist_name+"/'class='card-body name playlist'>"+ _playlist_name +"</a></div>"
+                                    $(".playlists_block").append(_html);
+                                }
+                                $(".create_playlist").removeClass('disabled').text('Create Playlist');
+                            }
+                        });
+                    }else{
+                        $(".message").text('Playlist with this name allredy exists.')
+                    }
+
+                });
+            }
+        });
+
+    });
+
+</script>
+{% endblock %}

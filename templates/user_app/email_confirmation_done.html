@@ -1,0 +1,6 @@
+{% if error %}
+    {{error}}
+{% else %}
+'Thank you for your email confirmation. Now you can login your account.'
+    <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
+{% endif %}

@@ -1,0 +1,142 @@
+{% extends 'includes/base.html' %}
+{% block title %} singer Detail {% endblock %}
+{% load static %}
+{% block content  %}
+
+<!-- singer Detail -->
+
+<div class="detail_main">
+    <div class="container-large">
+        <div class="container">
+            <h1 class="main_title">{{ singer.name }}</h1>
+            {% if singer.music.all %}
+            <form class='search' autocomplete='off'>
+                <div class='autocomplete'>
+                    <input type='text' id='filter' onkeyup='filter_search()' placeholder='Search music...' class='form-control me-2'>
+                </div>
+            </form>
+            {% endif %}
+
+            {% if singer.genre.all %}
+            <form class='search' autocomplete='off'>
+                <div class='autocomplete'>
+                    <input type='text' id='genre_filter' onkeyup='genre_filter_search()' placeholder='Search genre...' class='form-control me-2'>
+                </div>
+            </form>
+            {% endif %}
+            <div class="genre_block">
+                <div class="detail_music_box row">
+                    {% if singer.genre.all  %}
+                        {% for genre in singer.genre.all %}
+                        <h3 class="genre">{{ genre.name }}</h3>
+                        <a href="{{ genre.get_absolute_url }}" data-tooltip="Person {{ forloop.counter }}" data-placement="top" class="detail_mov_act_img col-lg-3 col-md-4 col-sm-12">
+                            <img src="{% if genre.image %}{{ genre.image.url }}{% endif %}" alt="genre"/>
+                        </a>
+                        {% endfor %}
+                    {% endif %}
+                    </div>
+            </div>
+            <div class="singer row singer_detail">
+                <div class="singer_detail_container">
+                    <div class="singer_main_box">
+                        <div class="singer_content row">
+                            <div class="col1 col">
+                                <div class="detail_img"><img width="500" src="{% if singer.image %}{{ singer.image.url }}{% endif %}"></div>
+                            </div>
+                            <div class="col2 col scroll_effect">
+                                <div class="song_detail_">
+                                    <div class="">
+                                        <h4>Songs</h4>
+                                        <div class="detail_singer_box row block">
+                                            {% for music in singer.music.all %}
+                                                <h3 class="name">{{ music.name }}</h3>
+                                                <a href="{{ music.get_absolute_url }}" class="detail_mov_act_img">
+                                                    <img src="{% if music.image %}{{ music.image.url }}{% endif %}" alt="">
+                                                </a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<div class="player">
+    <div class="player__header">
+        <div class="player__img player__img--absolute slider">
+            <button class="player__button player__button--absolute--nw playlist">
+                <img src="http://physical-authority.surge.sh/imgs/icon/playlist.svg" alt="playlist-icon">
+            </button>
+            <button class="player__button player__button--absolute--center play">
+                <img src="http://physical-authority.surge.sh/imgs/icon/play.svg" alt="play-icon">
+                <img src="http://physical-authority.surge.sh/imgs/icon/pause.svg" alt="pause-icon">
+            </button>
+            <div class="slider__content">
+                {% for music in singer.music.all %}
+                <img class="player__img img" src="{% if music.image %}{{ music.image.url }}{% endif %}" alt="cover">
+                {% endfor %}
+            </div>
+        </div>
+        <div class="player__controls">
+            <button class="player__button back">
+                <img class="img" src="http://physical-authority.surge.sh/imgs/icon/back.svg" alt="back-icon">
+            </button>
+            <p class="player__context slider__context">
+                <strong class="slider__name"></strong>
+                <span class="player__title slider__title"></span>
+            </p>
+            <button class="player__button next">
+                <img class="img" src="http://physical-authority.surge.sh/imgs/icon/next.svg" alt="next-icon">
+            </button>
+            <div class="progres">
+                <div class="progres__filled"></div>
+            </div>
+        </div>
+    </div>
+    <ul class="player__playlist list">
+        {% for music in singer.music.all %}
+        <li class="player__song">
+            <img class="player__img img" src="{% if music.image %}{{ music.image.url }}{% endif %}" alt="cover">
+            <p class="player__context ">
+                <b class="player__song-name">{{ music.genre }}</b>
+                <span class="flex">
+                    <span class="player__title">{{ music.name }}</span>
+                    <span class="player__song-time"></span>
+                </span>
+            </p>
+            <audio class="audio" src="/media/{{ music.audio }}"></audio>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
+<div>
+    {% if recently_viewed %}
+      {% for item in recently_viewed %}
+        {{ item.name }}
+        <div class="detail_img"><a href="{{ item.get_absolute_url}}"><img width="200" src="{% if item.image %}{{ item.image.url }}{% endif %}" alt="{{ item.name }}"></a></div>
+      {% endfor %}
+    {% endif %}
+</div>
+
+<h3>Related artists</h3>
+<div>
+    {% if related_artists %}
+    {% for item in related_artists %}
+      {{ item.name }}
+      <div class="detail_img"><a href="{{ item.get_absolute_url }}"><img width="200" src="{% if item.image %}{{ item.image.url }}{% endif %}" alt="{{ item.name }}"></a></div>
+    {% endfor %}
+  {% endif %}
+</div>
+
+<script src='{% static "js/autocomplete.js" %}'></script>
+<script src='{% static "js/filter_search.js" %}'></script>
+<script src='{% static "js/player_.js" %}'></script>
+{% endblock %}

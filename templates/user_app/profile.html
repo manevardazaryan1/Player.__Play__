@@ -1,0 +1,60 @@
+{% extends 'includes/base.html' %}
+{% block title %}Login{% endblock %}
+{% load static %}
+{% block content  %}
+
+
+
+<!-- Profile page -->
+
+<div class="add_post_box user_profile_container">
+    <h1 class="add_post_title title">Hello {{ request.user.username | title}}</h1>
+    <div>
+        <div>
+            <div class="playlists">
+            {% if user.playlist_user.all %}
+                {% for playlist in user.playlist_user.all %}
+                    <div class="card mb-2">
+                        <a href="{% url 'music_app:playlist_detail' playlist.name %}" class="card-body">{{ playlist.name }}</a>
+                    </div>
+
+                {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+
+    </div>
+<div class="form_design profile">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <tr>
+            <th scope="row">
+                <div class="user">{{ user.username|title|make_list|first }}</div>
+            </th>
+            <td>{{ request.user.email }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    {% if user.favorite_songs %}
+        {% for song in user.favorite_songs.all %}
+            {{ song.name }}
+            <a href="{{ song.get_absolute_url }}"><img src="{{ song.image.url }}" alt="{{ song.name }}" style="width:200px !important;"></a>
+        {% endfor %}
+        {% else %}
+        <a href="#">Lisen to music</a>
+    {% endif %}
+    <!-- NEED TO REVIEW -->
+    <!-- {% if request.user.is_staff %}
+        <a href="{url 'base:change_content'}">Change site content</a>
+    {% endif %} -->
+</div>
+</div>
+
+{% endblock %}

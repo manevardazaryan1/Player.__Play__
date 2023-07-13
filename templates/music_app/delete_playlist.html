@@ -1,0 +1,18 @@
+{% extends 'includes/base.html' %}
+{% block title %} Music {% endblock %}
+{% block content  %}
+
+<!-- Site index html -->
+ <!-- Site index html -->
+ <div class="music_container row container-fluid">
+    <h1 class="title">Delete {{ playlist.name }}</h1>
+    <h3>Are you shure?</h3>
+    <form method="POST" class="">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete Playlist</button>
+    </form>
+    <a href="{% url 'profile' request.user.username %}"><button type="submit" class="btn btn-primary">Cancel</button></a>
+
+
+</div>
+{% endblock %}
