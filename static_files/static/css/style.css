@@ -4,7 +4,6 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    align-items: center;
     text-decoration: none;
     box-sizing: border-box;
 }
@@ -14,12 +13,17 @@ html{
     width: 100%;
 }
 
-video::-webkit-media-controls {
+body{
+    overflow-x: hidden;
+    height: 100%;
+}
+
+/* video::-webkit-media-controls {
     display: none;
   }
   
   /* Could Use thise as well for Individual Controls */
-  video::-webkit-media-controls-play-button {}
+  /* video::-webkit-media-controls-play-button {}
   
   video::-webkit-media-controls-volume-slider {}
   
@@ -34,7 +38,7 @@ video::-webkit-media-controls {
     box-shadow: 1px 1px 10px #b2b2e2;
     border: none !important;
     color: #fff;
-}
+}  */
 
 /* .audio_file:hover, audio:focus, audio:active
 {
@@ -46,7 +50,7 @@ box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
 transform: scale(1.05);
 background: #f1f3f4;
 } */
-
+/* 
 audio.audio_file::-webkit-media-controls-panel{
 
 }
@@ -550,14 +554,10 @@ nav.navbar  .logo{
     text-shadow: 1px 1px 0px #b2b2e2;
     color: #000 !important;
     font-size: 51px !important;
-}
+} */
 
-body{
-    overflow-x: hidden;
-    height: 100%;
-}
 
-.all_heighgt_box,
+/* .all_heighgt_box,
 .main,
 body{
     width: 100% !important;
@@ -1168,4 +1168,4 @@ textarea[name='description']{
     .log_reg_form{
         width: 100%;
     }
-}
+} */
