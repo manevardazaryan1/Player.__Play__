@@ -5,50 +5,55 @@
 
 <!-- Site index html -->
  <!-- Site index html -->
- <div class="music_container row container-fluid">
-    <h1 class="title">Music</h1>
-    {% if music %}
-        <form class='search' autocomplete='off'>
-            <div class='autocomplete'>
-                <input type='text' id='filter' onkeyup='filter_search()' placeholder='Search music...' class='form-control me-2'>
-            </div>
-        </form>
-    {% endif %}
-    {% for song in music %}
-    <div class="col-lg-3 col-md-4 col-sm-12 block">
-        <div class="">
-            <div class="music_box">
-                <div class="music_image">
-                    <a href="{% url 'music_app:detail' song.slug %}">
-                        <img src="{% if song.image %}{{ song.image.url }}{% endif %}" alt="">
-                    </a>
+ <div class="main infinite-container">
+    <div class="music_container row container-fluid">
+        <h1 class="title">Music</h1>
+        {% if music %}
+            <form class='search' autocomplete='off'>
+                <div class='autocomplete'>
+                    <input type='text' id='filter' onkeyup='filter_search()' placeholder='Search music...' class='form-control me-2'>
                 </div>
-                <div class="music_name">
-                    <h3 class="name">{{ song.name }}</h3>
+            </form>
+        {% endif %}
+        {% for song in music %}
+        <div class="col-lg-3 col-md-4 col-sm-12 block">
+            <div class="">
+                <div class="music_box">
+                    <div class="music_image">
+                        <a href="{% url 'music_app:detail' song.slug %}">
+                            <img src="{% if song.image %}{{ song.image.url }}{% endif %}" alt="" width="200">
+                        </a>
+                    </div>
+                    <div class="music_name">
+                        <h3 class="name">{{ song.name }}</h3>
+                    </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-
-    
-    {% endfor %}
-    <nav aria-label="...">
-        <ul class="pagination d-flex justify-content-end">
-            {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-            </li>
-            {% endif %}
-            <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
-            {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
 </div>
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script src='{% static "js/autocomplete.js" %}'></script>
 <script src='{% static "js/filter_search.js" %}'></script>
+<script src='{% static "js/jquery.waypoints.min.js" %}'></script>
+<script src='{% static "js/infinite.min.js" %}'></script>
+<script>
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        handler: function(direction) {
+
+    },
+    offset: 'bottom-in-view',
+
+    onBeforePageLoad: function () {
+    $('.spinner-border').show();
+    },
+    onAfterPageLoad: function () {
+    $('.spinner-border').hide();
+    }
+
+    });
+</script>
 
 {% endblock %}

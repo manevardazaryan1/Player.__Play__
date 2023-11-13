@@ -6,11 +6,6 @@
 <!-- music Detail -->
 
 <h1 class="main_title title">{{ music.name }}</h1>
-{% if music_video %}
-    <video width="320" height="240" controls="false" muted autoplay value="0">
-        <source src="{{ music_video }}" type="video/mp4">
-    </video>
-{% endif %}
 {% if user.is_authenticated %}
     {% if likes_count %}
         <div class="likes_count icon">{{ likes_count }}</div>

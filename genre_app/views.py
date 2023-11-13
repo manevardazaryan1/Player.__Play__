@@ -7,7 +7,6 @@ class GenreView(ListView):
 
     model = Genre
     template_name = '../templates/genre_app/genres.html'
-    paginate_by = 20
     context_object_name = 'genres'
 
 class GenreDetailView(DetailView):

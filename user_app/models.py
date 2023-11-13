@@ -46,10 +46,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
 
-
 class Profile(models.Model):
-    """Profile model"""
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -59,8 +56,6 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def send_profile_signal(sender, created, instance, **kwargs):
-    """Profile creation function"""
-
     if created:
         Profile.objects.create(user=instance)
         instance.profile.save()

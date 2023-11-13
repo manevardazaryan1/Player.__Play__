@@ -12,8 +12,7 @@ class SingerView(ListView):
     model = Singer
     template_name = '../templates/singer_app/all_artists.html'
     context_object_name = 'singers'
-    paginate_by = 32
-
+    
 
 class SingerDetailView(DetailView):
     """Singer detail page view"""

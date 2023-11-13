@@ -25,7 +25,6 @@ class MusicView(ListView):
 
     model = Music
     template_name = '../templates/music_app/all_songs.html'
-    paginate_by = 16
     context_object_name = 'music'
 
 class PlayerView(ListView):
@@ -91,10 +90,6 @@ class MusicDetailView(DetailView):
             else:
                 context['like'] = 'like'
             context['playlists'] = Playlist.objects.filter(user=self.request.user)
-        if obj.audio:
-            file_name = obj.audio.name.split("/")[1]
-            site_domain = get_current_site(self.request)
-            context['music_video'] = f'http://{site_domain}/media/music_videos/{file_name.split(".")[0]}.mp4'
 
         return context
 

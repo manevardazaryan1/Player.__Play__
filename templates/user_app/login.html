@@ -4,8 +4,8 @@
 {% load socialaccount %}
 <!-- Login form html -->
 
-<div class="main ">
-    <div class="add_post_box">
+<div class="register">
+    <div class="form">
         <h1 class="add_post_title title">Login</h1>
 
         <!-- <button class="btn btn-outline-info">
@@ -21,11 +21,11 @@
             <div class="form-error">{{ f.errors }}</div>
             {% endfor %}
             <div class="g-recaptcha" data-theme="dark" data-sitekey="6LeHK-cmAAAAAE-cLxGjJWodz1EnpjloeT9xuQYj" data-callback="capcha_filled" data-expired-callback="capcha_expired"></div>
-            <button type="submit" id="submit">Login</button>
+            <button type="submit" id="submit" class="btn">Login</button>
 
             <div class="log_box">
                 <p>
-                    <a href="{% url 'password_reset' %}">Forget password?</a> or <a href="{% url 'register' %}">Sign up</a>
+                    <a href="{% url 'password_reset' %}">Forgot password?</a> or <a href="{% url 'register' %}">Sign up</a>
                 </p>
             </div>
         </form>

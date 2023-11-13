@@ -9,21 +9,6 @@
     <div class="container-large">
         <div class="container">
             <h1 class="main_title">{{ singer.name }}</h1>
-            {% if singer.music.all %}
-            <form class='search' autocomplete='off'>
-                <div class='autocomplete'>
-                    <input type='text' id='filter' onkeyup='filter_search()' placeholder='Search music...' class='form-control me-2'>
-                </div>
-            </form>
-            {% endif %}
-
-            {% if singer.genre.all %}
-            <form class='search' autocomplete='off'>
-                <div class='autocomplete'>
-                    <input type='text' id='genre_filter' onkeyup='genre_filter_search()' placeholder='Search genre...' class='form-control me-2'>
-                </div>
-            </form>
-            {% endif %}
             <div class="genre_block">
                 <div class="detail_music_box row">
                     {% if singer.genre.all  %}
