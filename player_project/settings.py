@@ -86,7 +86,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 ROOT_URLCONF = 'player_project.urls'
 
 STATIC_URL = "static/"
